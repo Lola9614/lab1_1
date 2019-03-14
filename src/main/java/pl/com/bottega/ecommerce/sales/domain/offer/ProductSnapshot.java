@@ -1,23 +1,22 @@
 package pl.com.bottega.ecommerce.sales.domain.offer;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
 public class ProductSnapshot {
+
     private String id;
     private Date snapshotDate;
     private String type;
     private String name;
-    private BigDecimal productPrice;
+    private Money price;
 
-
-    public ProductSnapshot(String id, Date snapshotDate, String type, String name, BigDecimal productPrice) {
+    public ProductSnapshot(String id, Date snapshotDate, String type, String name, Money price) {
         this.id = id;
         this.snapshotDate = snapshotDate;
         this.type = type;
         this.name = name;
-        this.productPrice = productPrice;
+        this.price = price;
     }
 
     public String getId() {
@@ -36,8 +35,8 @@ public class ProductSnapshot {
         return name;
     }
 
-    public BigDecimal getProductPrice() {
-        return productPrice;
+    public Money getPrice() {
+        return price;
     }
 
     @Override
@@ -51,11 +50,11 @@ public class ProductSnapshot {
                && snapshotDate.equals(that.snapshotDate)
                && type.equals(that.type)
                && name.equals(that.name)
-               && productPrice.equals(that.productPrice);
+               && price.equals(that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, snapshotDate, type, name, productPrice);
+        return Objects.hash(id, snapshotDate, type, name, price);
     }
 }

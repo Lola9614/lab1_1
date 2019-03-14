@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Offer {
 
-//    without new
+    //    without new
     private List<OfferItem> availableItems = new ArrayList<OfferItem>();
 
     private List<OfferItem> unavailableItems = new ArrayList<OfferItem>();
