@@ -24,24 +24,20 @@ public class OfferItem {
 
     private Money totalCost;
 
-    // discount
-    private String discountCause;
-
-    private BigDecimal discount;
+    private Discount discount;
 
     public OfferItem(ProductSnapshot productSnapshot, int quantity) {
-        this(productSnapshot, quantity, null, null);
+        this(productSnapshot, quantity, null);
     }
 
-    public OfferItem(ProductSnapshot productSnapshot, int quantity, BigDecimal discount, String discountCause) {
+    public OfferItem(ProductSnapshot productSnapshot, int quantity, Discount discount) {
 
         this.quantity = quantity;
         this.discount = discount;
-        this.discountCause = discountCause;
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
-            discountValue = discountValue.add(discount);
+            discountValue = discountValue.add(discount.getDiscount());
         }
 
         this.totalCost = new Money(productSnapshot.getPrice().getProductPrice().multiply(new BigDecimal(quantity)).subtract(discountValue),
@@ -56,12 +52,8 @@ public class OfferItem {
         return totalCost;
     }
 
-    public BigDecimal getDiscount() {
+    public Discount getDiscount() {
         return discount;
-    }
-
-    public String getDiscountCause() {
-        return discountCause;
     }
 
     public int getQuantity() {
@@ -70,7 +62,7 @@ public class OfferItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(discount, discountCause, productSnapshot, quantity, totalCost);
+        return Objects.hash(discount, productSnapshot, quantity, totalCost);
     }
 
     @Override
@@ -85,8 +77,10 @@ public class OfferItem {
             return false;
         }
         OfferItem other = (OfferItem) obj;
-        return Objects.equals(discount, other.discount) && Objects.equals(discountCause, other.discountCause) && Objects.equals(
-                productSnapshot, other.productSnapshot) && quantity == other.quantity && Objects.equals(totalCost, other.totalCost);
+        return Objects.equals(discount, other.discount)
+               && Objects.equals(productSnapshot, other.productSnapshot)
+               && quantity == other.quantity
+               && Objects.equals(totalCost, other.totalCost);
     }
 
     /**
