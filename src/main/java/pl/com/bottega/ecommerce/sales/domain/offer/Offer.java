@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Offer {
 
+//    without new
     private List<OfferItem> availableItems = new ArrayList<OfferItem>();
 
     private List<OfferItem> unavailableItems = new ArrayList<OfferItem>();
@@ -24,7 +25,7 @@ public class Offer {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
+        final int prime = 31;   //ekstratk const
         int result = 1;
         result = prime * result + (availableItems == null ? 0 : availableItems.hashCode());
         return result;
@@ -53,10 +54,8 @@ public class Offer {
     }
 
     /**
-     *
      * @param seenOffer
-     * @param delta
-     *            acceptable difference in percent
+     * @param delta     acceptable difference in percent
      * @return
      */
     public boolean sameAs(Offer seenOffer, double delta) {
@@ -65,7 +64,7 @@ public class Offer {
         }
 
         for (OfferItem item : availableItems) {
-            OfferItem sameItem = seenOffer.findItem(item.getProductId());
+            OfferItem sameItem = seenOffer.findItem(item.getProductSnapshot().getId());
             if (sameItem == null) {
                 return false;
             }
@@ -79,7 +78,7 @@ public class Offer {
 
     private OfferItem findItem(String productId) {
         for (OfferItem item : availableItems) {
-            if (item.getProductId().equals(productId)) {
+            if (item.getProductSnapshot().getId().equals(productId)) {
                 return item;
             }
         }
